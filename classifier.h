@@ -5,13 +5,27 @@
 #include <fstream>
 #include <math.h>
 #include <vector>
+#include "Dense"
 
 using namespace std;
+using Eigen::ArrayXd;
 
 class GNB {
 public:
 
-	std::vector<string> possible_labels = {"left","keep","right"};
+	vector<string> possible_labels = {"left","keep","right"};
+	
+	ArrayXd left_means;
+	ArrayXd left_sds;
+	double left_prior;
+	
+	ArrayXd keep_means;
+	ArrayXd keep_sds;
+	double keep_prior;
+	
+	ArrayXd right_means;
+	ArrayXd right_sds;
+	double right_prior;
 
 
 	/**
@@ -25,13 +39,10 @@ public:
  	virtual ~GNB();
 
  	void train(vector<vector<double> > data, vector<string>  labels);
-    double lane_position(double);
-    double heading(double,double);
+ 	double lane_position(double d);
+    double heading(double s_dot, double d_dot);
   	string predict(vector<double>);
 
 };
 
 #endif
-
-
-
